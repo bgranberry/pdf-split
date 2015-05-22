@@ -1,10 +1,17 @@
+#!/usr/bin/env ruby
+require 'pry'
 
 class PdfSplitter
-    def split (in_file, range)
-        raw_file_name = /^\w+/.match(in_file)
+  def cli_extract(in_file, range)
+    puts split(in_file, range)
+  end
 
-        `pdftk #{in_file} cat #{range} output #{raw_file_name}_pages#{range}.pdf`
-    end
+  private
+  def extract(in_file, range)
+    #binding.pry
+    `pdftk #{in_file} cat #{range} output -`
+
+  end
 end
 
-splitter = PdfSplitter.new.split("multi_pdf.pdf", "2-5")
+splitter = PdfSplitter.new.cli_extract(ARGV[0], ARGV[1])
